@@ -1,0 +1,463 @@
+﻿:root {
+    /* teams */
+    --angels-red: 186, 0, 33;
+    --angels-blue: 0, 50, 99;
+    --astros-blue: 0, 45, 98;
+    --astros-orange: 235, 110, 31;
+    --athletics-green: 0, 56, 49;
+    --athletics-yellow: 239, 178, 30;
+    --bluejays-light-blue: 19, 74, 142;
+    --bluejays-dark-blue: 29, 45, 92;
+    --bluejays-red: 232, 41, 28;
+    --braves-red: 206, 17, 65;
+    --braves-blue: 19, 39, 79;
+    --brewers-yellow: 255, 197, 47;
+    --brewers-blue: 18, 40, 75;
+    --browns-brown: 93, 42, 44;
+    --cardinals-red: 151, 35, 63;
+    --cardinals-yellow: 255, 182, 18;
+    --cubs-blue: 14, 51, 134;
+    --cubs-red: 204, 52, 51;
+    --diamondbacks-red: 167, 25, 48;
+    --diamondbacks-tan: 227, 212, 173;
+    --dodgers-blue: 0, 90, 156;
+    --dodgers-siver: 191, 192, 191;
+    --dodgers-red: 239, 62, 66;
+    --giants-orange: 253, 90, 30;
+    --giants-black: 39, 37, 31;
+    --guardians-blue: 0, 56, 93;
+    --guardians-red: 229, 0, 34;
+    --mariners-green: 0, 92, 92;
+    --mariners-blue: 12, 44, 86;
+    --marlins-blue: 0, 163, 224;
+    --marlins-red: 239, 51, 64;
+    --marlins-slate: 65, 116, 141;
+    --mets-blue: 0, 45, 114;
+    --mets-orange: 252, 89, 16;
+    --nationals-red: 171, 0, 3;
+    --nationals-blue: 20, 34, 90;
+    --orioles-black: 0, 0, 0;
+    --orioles-orange: 223, 70, 1;
+    --padres-brown: 47, 36, 29;
+    --padres-yellow: 255, 196, 37;
+    --pirates-yellow: 253, 184, 39;
+    --phillies-red: 232, 24, 40;
+    --phillies-blue: 0, 45, 114;
+    --rangers-red: 192, 17, 31;
+    --rangers-blue: 0, 50, 120;
+    --rays-baby-blue: 143, 188, 230;
+    --rays-navy-blue: 9, 44, 92;
+    --reds-red: 198, 1, 31;
+    --redsox-red: 189, 48, 57;
+    --redsox-blue: 12, 35, 64;
+    --rockies-purple: 51, 51, 102;
+    --royals-blue: 0, 70, 135;
+    --royals-gold: 189, 155, 96;
+    --tigers-orange: 250, 70, 22;
+    --tigers-blue: 12, 35, 64;
+    --twins-blue: 0, 43, 92;
+    --twins-red: 211, 17, 69;
+    --whitesox-silver: 196, 206, 212;
+    --yankees-blue: 0, 48, 135;
+    --yankees-red: 228, 0, 44;
+    --yankees-navy: 12, 35, 64;
+    /* other */
+    --white: 255, 255, 255;
+    --black: 0, 0, 0;
+    --dark: 18, 18, 18;
+    --grey: 144, 161, 157;
+    /* positions */
+    --blue: 50, 130, 184;
+    --green: 137, 217, 157;
+    --pink: 252, 108, 106;
+    --yellow: 255, 196, 37;
+    --purple: 164, 147, 245
+}
+
+.page {
+    display: flex;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    margin-left: 276px;
+}
+
+body {
+    font-family: Bahnschrift;
+    background-color: rgba(var(--dark), 1);
+    color: rgba(var(--white), 1);
+    margin: 0px;
+    flex-grow: 1;
+}
+
+/* custom scrollbar */
+*::-webkit-scrollbar {
+    width: 15px;
+    background-color: transparent;
+    border: none;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: rgba(var(--black), 0.25);
+    border: transparent;
+    border-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--white), 0.15);
+    background-clip: content-box;
+}
+
+    *::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(var(--white), 0.25);
+    }
+
+a {
+    text-decoration: none;
+    color: rgba(var(--white), 1);
+}
+
+
+/* table */
+table {
+    border-spacing: 10px;
+    background-color: rgba(var(--white), 0.05);
+    width: 1000px;
+    border: 1px solid rgba(var(--white), 0.15);
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+    td div {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+.center {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+thead {
+background-color: rgba(var(--black), 0.5);
+
+}
+
+.input-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* game */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(var(--white), 0.05);
+    border-radius: 5px 5px 0 0;
+    font-size: 12px;
+    padding: 5px 0;
+}
+
+.game-row {
+    display: flex;
+    flex-direction: row;
+    height: 75px;
+}
+
+.game-column {
+    display: flex;
+    flex-direction: column;
+    max-width: 1100px;
+    border: 1px solid rgba(var(--white), 0.15);
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.team {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 100%;
+    overflow: hidden;
+}
+
+    .team img {
+        width: 100px;
+        height: auto;
+    }
+
+.team-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.team-stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    background-color: rgba(var(--black), 0.5);
+}
+
+.team-name {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    width: 75px;
+}
+
+.score {
+    display: flex;
+    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    height: 100%;
+    background-color: rgba(var(--black), 0.5);
+}
+
+/* General stats block styling */
+.stats {
+    font-size: 12px;
+    margin: 0 10px;
+    width: 300px;
+}
+
+/* Styling for pitcher name and RGS display */
+h2 {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 4.5px 0;
+}
+
+.green {
+    color: rgba(var(--green), 1);
+}
+
+.red {
+    color: rgba(var(--pink), 1);
+}
+
+/* Inputs */
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(var(--white), 1); 
+}
+
+input[type="text"] {
+    width: 390px; 
+    padding: 8px;
+    border: 1px solid rgba(var(--white), 0.15);
+    border-radius: 5px;
+    background-color: rgba(var(--white), 0.05);
+    color: rgba(var(--white), 1);
+}
+
+    input[type="text"]:focus, input[type="text"]:active {
+        border: 1px solid #0056b3;
+        outline: none;
+    }
+
+select {
+    width: 363px; 
+    padding: 8px;
+    border: 1px solid rgba(var(--white), 0.15);
+    border-radius: 5px;
+    background-color: rgba(var(--dark), 1);
+    color: rgba(var(--white), 1);
+}
+
+    select:focus, select:active {
+        border: 1px solid #0056b3;
+    }
+
+button {
+    padding: 9px 20px; 
+    background-color: #007BFF;
+    color: white; 
+    font-weight: bold;
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer;
+    margin: 0;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+/* team classes */
+.ANA {
+    background: linear-gradient(to right, rgba(var(--angels-red), 0.25), rgba(var(--angels-red), 1));
+}
+
+.HOU {
+    background: linear-gradient(to right, rgba(var(--astros-orange), 0.25), rgba(var(--astros-orange), 1));
+}
+
+.OAK {
+    background: linear-gradient(to right, rgba(var(--athletics-green), 0.25), rgba(var(--athletics-green), 1));
+}
+
+.TOR {
+    background: linear-gradient(to right, rgba(var(--bluejays-light-blue), 0.25), rgba(var(--bluejays-light-blue), 1));
+}
+
+.ATL {
+    background: linear-gradient(to right, rgba(var(--braves-blue), 0.25), rgba(var(--braves-blue), 1));
+}
+
+.MIL {
+    background: linear-gradient(to right, rgba(var(--brewers-blue), 0.25), rgba(var(--brewers-blue), 1));
+}
+
+.STL {
+    background: linear-gradient(to right, rgba(var(--cardinals-red), 0.25), rgba(var(--cardinals-red), 1));
+}
+
+.CHC {
+    background: linear-gradient(to right, rgba(var(--cubs-blue), 0.25), rgba(var(--cubs-blue), 1));
+}
+
+.ARI {
+    background: linear-gradient(to right, rgba(var(--diamondbacks-red), 0.25), rgba(var(--diamondbacks-red), 1));
+}
+
+.LAD {
+    background: linear-gradient(to right, rgba(var(--dodgers-blue), 0.25), rgba(var(--dodgers-blue), 1));
+}
+
+.SFG {
+    background: linear-gradient(to right, rgba(var(--giants-orange), 0.25), rgba(var(--giants-orange), 1));
+}
+
+.CLE {
+    background: linear-gradient(to right, rgba(var(--guardians-red), 0.25), rgba(var(--guardians-red), 1));
+}
+
+.SEA {
+    background: linear-gradient(to right, rgba(var(--mariners-green), 0.25), rgba(var(--mariners-green), 1));
+}
+
+.FLA {
+    background: linear-gradient(to right, rgba(var(--mariners-blue), 0.25), rgba(var(--marlins-blue), 1));
+}
+
+.NYM {
+    background: linear-gradient(to right, rgba(var(--mets-orange), 0.25), rgba(var(--mets-orange), 1));
+}
+
+.BAL {
+    background: linear-gradient(to right, rgba(var(--orioles-orange), 0.25), rgba(var(--orioles-orange), 1));
+}
+
+.SDP {
+    background: linear-gradient(to right, rgba(var(--padres-yellow), 0.25), rgba(var(--padres-yellow), 1));
+}
+
+.PHI, .PHP {
+    background: linear-gradient(to right, rgba(var(--phillies-red), 0.25), rgba(var(--phillies-red), 1));
+}
+
+.PIT {
+    background: linear-gradient(to right, rgba(var(--pirates-yellow), 0.25), rgba(var(--pirates-yellow), 1));
+}
+
+.TEX {
+    background: linear-gradient(to right, rgba(var(--rangers-blue), 0.25), rgba(var(--rangers-blue), 1));
+}
+
+.TBD {
+    background: linear-gradient(to right, rgba(var(--rays-baby-blue), 0.25), rgba(var(--rays-baby-blue), 1));
+}
+
+.CIN {
+    background: linear-gradient(to right, rgba(var(--reds-red), 0.25), rgba(var(--reds-red), 1));
+}
+
+.BOS {
+    background: linear-gradient(to right, rgba(var(--redsox-red), 0.25), rgba(var(--redsox-red), 1));
+}
+
+.COL {
+    background: linear-gradient(to right, rgba(var(--rockies-purple), 0.25), rgba(var(--rockies-purple), 1));
+}
+
+.KCR {
+    background: linear-gradient(to right, rgba(var(--royals-blue), 0.25), rgba(var(--royals-blue), 1));
+}
+
+.DET {
+    background: linear-gradient(to right, rgba(var(--tigers-orange), 0.25), rgba(var(--tigers-orange), 1));
+}
+
+.MIN {
+    background: linear-gradient(to right, rgba(var(--twins-blue), 0.25), rgba(var(--twins-blue), 1));
+}
+
+.CHW {
+    background: linear-gradient(to right, rgba(var(--whitesox-silver), 0.25), rgba(var(--whitesox-silver), 1));
+}
+
+.NYY {
+    background: linear-gradient(to right, rgba(var(--yankees-blue), 0.25), rgba(var(--yankees-blue), 1));
+}
+
+.WSN {
+    background: linear-gradient(to right, rgba(var(--nationals-red), 0.25), rgba(var(--nationals-red), 1));
+}
+
+.SL2, .SR1, .SR2 {
+    background: linear-gradient(to right, rgba(var(--white), 1), rgba(var(--white), 1));
+}
+
+    .SL2, .SR1, .SR2 > .team-name {
+        color: rgba(var(--browns-brown), 1);
+    }
+
+.CL3, CL5, .CL2, .BFN {
+    background: linear-gradient(to right, rgba(var(--white), 1), rgba(var(--white), 1));
+}
+
+    .CL3, CL5, .CL2, .BFN > .team-name {
+        color: rgba(var(--braves-blue), 1);
+    }
+
+.PRO,.KC2, .LS2 {
+    background: linear-gradient(to right, rgba(var(--white), 0.35), rgba(var(--white), 1));
+}
+
+.DTN {
+    background: linear-gradient(to right, rgba(var(--tigers-blue), 0.35), rgba(var(--tigers-blue), 1));
+}
+
+.WS8, .WS9 {
+    background: linear-gradient(to right, rgba(var(--whitesox-silver), 0.35), rgba(var(--whitesox-silver), 1));
+}

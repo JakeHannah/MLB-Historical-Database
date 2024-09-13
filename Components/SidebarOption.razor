@@ -1,0 +1,23 @@
+﻿<div class="option-container">
+    <div class="option-column">
+        <div class="option">
+            <h2>@OptionTitle</h2>
+        </div>
+        @foreach (var subOption in SubOptions)
+        {
+            <div class="option-item">
+                <a href="/@subOption"><h3>@subOption</h3></a>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string OptionTitle { get; set; }
+
+    [Parameter]
+    public List<string> SubOptions { get; set; }
+
+}
+

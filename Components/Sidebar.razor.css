@@ -1,0 +1,11 @@
+﻿.sidebar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 275px;
+    height: 100vh;
+    background-color: rgba(var(--black), 0.5);
+    border-right: 1px solid rgba(var(--white), 0.15);
+}

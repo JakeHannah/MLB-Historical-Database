@@ -1,0 +1,92 @@
+﻿@page "/"
+@using MLBHistoricalDatabase
+@using MLBHistoricalDatabase.Layout
+@using MLBHistoricalDatabase.Components
+@using MLBHistoricalDatabase.Data
+@using MLBHistoricalDatabase.Pages
+@rendermode InteractiveServer
+
+@inject IGameRepository GameRepository
+
+<PageTitle>MLB Historical Database</PageTitle>
+
+<div class="container">
+
+    @if (games == null)
+    {
+        <p>Loading games...</p>
+    }
+    else
+    {
+         <div class="input-row">
+            <label for="yearSelection">Select Year:</label>
+            <select id="yearSelection" @bind="inputYear">
+                @foreach (var year in GetYearRange())
+                {
+                    <option value="@year">@year</option>
+                }
+            </select>
+            <button @onclick="LoadGames">Load Games</button>
+        </div>
+        @foreach (var game in games)
+        {
+            <div class="game-column">
+                <div class="date">@game.Date.ToShortDateString()</div>
+                <div class="game-row">
+                    @foreach (var stats in game.TeamGameStats)
+                    {
+                        <div class="team-column">
+                            <div class="team @stats.Team.Name">
+                                <img src="../Logos/@(stats.Team.Name).png" />
+                                <div class="team-name">@stats.Team.Name</div>
+                                <div class="score">@stats.Score</div>
+                            </div>
+                            <div class="team-stats">
+                                <h2>Rating Probability: @stats.Team.RatingProb</h2>
+                            </div>
+                        </div>
+                        <div class="stats">
+                            <h2>Starting Pitcher: @stats.Pitcher.Name</h2>
+                            <h2 class="@GetPitcherClass(stats.Pitcher.PitcherRgs)">RGS: @stats.Pitcher.PitcherRgs</h2>
+                            <h2>ADJ: @stats.Pitcher.PitcherAdj</h2>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private List<Game> games;
+    private string inputYear = "2022";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadGames();
+    }
+
+    private async Task LoadGames()
+    {
+        if (!int.TryParse(inputYear, out var selectedYear))
+            return;
+
+        games = await GameRepository.GetAllGamesDetailedAsync(selectedYear);
+        StateHasChanged();
+    }
+
+    private IEnumerable<int> GetYearRange()
+    {
+        return Enumerable.Range(1871, DateTime.Now.Year - 1871 + 1).Reverse();
+    }
+
+    private string GetPitcherClass(double pitcherRgs)
+    {
+        if (pitcherRgs >= 50.0)
+            return "green"; // Green class if RGS is 50 or more
+        else if (pitcherRgs < 45.0)
+            return "red"; // Red class if RGS is below 45
+        else
+            return "";
+    }
+}

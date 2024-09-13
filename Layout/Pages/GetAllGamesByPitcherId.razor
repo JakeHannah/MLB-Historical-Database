@@ -1,0 +1,70 @@
+﻿@page "/GetAllGamesByPitcherId"
+@using MLBHistoricalDatabase
+@using MLBHistoricalDatabase.Layout
+@using MLBHistoricalDatabase.Components
+@using MLBHistoricalDatabase.Data
+
+@inject IGameRepository GameRepository
+
+<PageTitle>MLB Historical Database</PageTitle>
+
+@if (games == null)
+{
+    <p>Loading games...</p>
+}
+else
+{
+    <div class="header">
+        <h1>@games[0].TeamGameStats[0].Pitcher.Name (ID: @games[0].TeamGameStats[0].Pitcher.PitcherId)</h1>
+    </div>
+    <div class="container">
+        @foreach (var game in games)
+        {
+            <div class="game-column">
+                <div class="date">@game.Date.ToShortDateString()</div>
+                <div class="game-row" style="height: 60px;">
+                    @foreach (var stats in game.TeamGameStats)
+                    {
+                        <div class="team-column">
+                            <div class="team @stats.Team.Name" style="width: 150px;">
+                                <img src="../Logos/@(stats.Team.Name).png" style="width: 75px;" />
+                                <div class="team-name">@stats.Team.Name</div>
+                            </div>
+                        </div>
+                        <div class="stats">
+                            <h2>Starting Pitcher: @stats.Pitcher.Name</h2>
+                            <h2 class="@GetPitcherClass(stats.Pitcher.PitcherRgs)">RGS: @stats.Pitcher.PitcherRgs</h2>
+                            <h2>ADJ: @stats.Pitcher.PitcherAdj</h2>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Game> games;
+    private int pitcherId = 2726;
+
+    protected override async Task OnInitializedAsync()
+    {
+        games = await GameRepository.GetAllGamesByPitcherIdAsync(pitcherId);
+    }
+
+    private string GetPitcherClass(double pitcherRgs)
+    {
+        if (pitcherRgs >= 50.0)
+        {
+            return "green"; // Green class if RGS is 50 or more
+        }
+        else if (pitcherRgs < 45.0)
+        {
+            return "red"; // Red class if RGS is below 45
+        }
+        else
+        {
+            return "";
+        }
+    }
+}

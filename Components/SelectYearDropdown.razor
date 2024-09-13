@@ -1,0 +1,27 @@
+﻿@using MLBHistoricalDatabase.Components
+
+<div class="select-year">
+    <label for="yearSelector">Select Year: </label>
+    <select id="yearSelector" @onchange="YearChanged">
+        @for (var year = 1871; year <= 2022; year++)
+        {
+            <option value="@year" selected="@year == CurrentYear">@year</option>
+        }
+    </select>
+</div>
+
+@code {
+    [Parameter]
+    public int CurrentYear { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnYearSelected { get; set; }
+
+    private async Task YearChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var year))
+        {
+            await OnYearSelected.InvokeAsync(year);
+        }
+    }
+}

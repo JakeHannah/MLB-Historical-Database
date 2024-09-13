@@ -1,0 +1,71 @@
+﻿@page "/GetPitchersByRgs"
+
+@using MLBHistoricalDatabase
+@using MLBHistoricalDatabase.Layout
+@using MLBHistoricalDatabase.Components
+@using MLBHistoricalDatabase.Data
+@using MLBHistoricalDatabase.Pages
+
+@inject IPitcherRepository PitcherRepository
+
+<PageTitle>Pitchers</PageTitle>
+@if (pitchers == null)
+{
+    <p>Loading pitchers...</p>
+}
+else if (pitchers.Count == 0)
+{
+    <p>No pitchers found in the database.</p>
+}
+else
+{
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Pitcher ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">RGS</th>
+                    <th scope="col">ADJ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pitcher in pitchers)
+                {
+                    <tr>
+                        <td class="center">@pitcher.PitcherId</td>
+                        <td>@pitcher.Name</td>
+                        <td class="center @GetPitcherClass(pitcher.PitcherRgs)">@pitcher.PitcherRgs</td>
+                        <td class="center">@pitcher.PitcherAdj</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<Pitcher> pitchers;
+    private float selectedRgs = 55.0f;
+
+    protected override async Task OnInitializedAsync()
+    {
+        pitchers = await PitcherRepository.GetPitchersByRgsAsync(selectedRgs);
+    }
+
+    private string GetPitcherClass(double pitcherRgs)
+    {
+        if (pitcherRgs >= 55.0)
+        {
+            return "green"; // Green class if RGS is 55 or more
+        }
+        else if (pitcherRgs < 45.0)
+        {
+            return "red"; // Red class if RGS is below 45
+        }
+        else
+        {
+            return ""; // No class applied
+        }
+    }
+}

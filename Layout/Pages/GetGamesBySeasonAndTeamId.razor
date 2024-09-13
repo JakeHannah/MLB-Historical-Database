@@ -1,0 +1,163 @@
+﻿@page "/GetGamesBySeasonAndTeamId"
+@using MLBHistoricalDatabase
+@using MLBHistoricalDatabase.Layout
+@using MLBHistoricalDatabase.Components
+@using MLBHistoricalDatabase.Data
+@using MLBHistoricalDatabase.Pages
+@rendermode InteractiveServer
+
+@inject IGameRepository GameRepository
+@inject ITeamRepository TeamRepository
+
+<PageTitle>MLB Historical Database</PageTitle>
+
+@if (games == null)
+{
+    <p>Loading games...</p>
+}
+else
+{
+    <div class="container">
+        <div class="input-row">
+            <label for="teamDropdown">Select Team:</label>
+            <select id="teamDropdown" value="@teamId" @onchange="OnTeamSelected">
+                @if (teams == null)
+                {
+                    <option>Loading teams...</option>
+                }
+                else if (teams.Count == 0)
+                {
+                    <option>No teams found.</option>
+                }
+                else
+                {
+                    <option value="0">Select a team...</option>
+                    @foreach (var team in teams)
+                    {
+                        <option style="background-image:url(@(team.Name).png);" value="@team.TeamId">
+                            @team.FullName
+                        </option>
+                    }
+                }
+            </select>
+            <label for="yearSelection">Select Year:</label>
+            <select id="yearSelection" @bind="@inputYear">
+                @if (availableYears == null)
+                {
+                    <option>Loading years...</option>
+                }
+                else if (availableYears.Count == 0)
+                {
+                    <option>No active years found.</option>
+                }
+                else
+                {
+                    foreach (var year in availableYears)
+                    {
+                        <option value="@year">@year</option>
+                    }
+                }
+            </select>
+            <button @onclick="LoadGames">Load Games</button>
+        </div>
+        @foreach (var game in games)
+        {
+            <div class="game-column">
+                <div class="date">@game.Date.ToShortDateString()</div>
+                <div class="game-row">
+                    @foreach (var stats in game.TeamGameStats)
+                    {
+                        <div class="team-column">
+                            <div class="team @stats.Team.Name">
+                                <img src="../Logos/@(stats.Team.Name).png" />
+                                <div class="team-name">@stats.Team.Name</div>
+                                <div class="score">@stats.Score</div>
+                            </div>
+                            <div class="team-stats">
+                                <h2>@stats.Team.FullName</h2>
+                            </div>
+                        </div>
+                        <div class="stats">
+                            <h2>Starting Pitcher: @stats.Pitcher.Name</h2>
+                            <h2 class="@GetPitcherClass(stats.Pitcher.PitcherRgs)">RGS: @stats.Pitcher.PitcherRgs</h2>
+                            <h2>ADJ: @stats.Pitcher.PitcherAdj</h2>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Game> games;
+    private List<Team> teams;
+    private string inputYear = "2022";
+    private int teamId = 13;
+    private List<int> availableYears;
+
+    protected override async Task OnInitializedAsync()
+    {
+        teams = await TeamRepository.GetAllTeamsAsync();
+        await LoadGames();
+    }
+
+    private async Task LoadGames()
+    {
+        if (int.TryParse(inputYear, out var selectedYear))
+        {
+            games = await GameRepository.GetGamesBySeasonAndTeamIdAsync(selectedYear, teamId);
+        }
+        else
+        {
+            games = new List<Game>(); // Or set to null, depending on how you want to handle no games scenario
+        }
+
+        StateHasChanged();
+    }
+
+private async Task OnTeamSelected(ChangeEventArgs e)
+{
+    int newTeamId = int.Parse(e.Value.ToString());
+    if (newTeamId != teamId)
+    {
+        teamId = newTeamId;
+        await UpdateAvailableYearsAndLoadGames();
+    }
+}
+
+private async Task UpdateAvailableYearsAndLoadGames()
+{
+    availableYears = await TeamRepository.GetTeamActiveSeasonsAsync(teamId);
+    if (availableYears.Any())
+    {
+        inputYear = availableYears.First().ToString();
+        await LoadGames();
+    }
+    else
+    {
+        inputYear = null;
+        games = null;
+    }
+    StateHasChanged();
+}
+
+
+
+
+    private string GetPitcherClass(double pitcherRgs)
+    {
+        if (pitcherRgs >= 50.0)
+        {
+            return "green"; // Green class if RGS is 50 or more
+        }
+        else if (pitcherRgs < 45.0)
+        {
+            return "red"; // Red class if RGS is below 45
+        }
+        else
+        {
+            return "";
+        }
+    }
+}

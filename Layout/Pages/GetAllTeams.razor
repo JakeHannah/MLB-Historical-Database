@@ -1,0 +1,46 @@
+﻿@page "/GetAllTeams"
+@using MLBHistoricalDatabase
+@using MLBHistoricalDatabase.Layout
+@using MLBHistoricalDatabase.Components
+@using MLBHistoricalDatabase.Data
+@using MLBHistoricalDatabase.Pages
+
+@inject ITeamRepository TeamRepository
+
+@if (teams == null)
+{
+    <p>Loading teams...</p>
+}
+else if (teams.Count == 0)
+{
+    <p>No games found for the selected season.</p>
+}
+else
+{
+    <div class="container">
+        @foreach (var team in teams)
+        {
+            <div class="game-column">
+                <div class="team-column">
+                    <div class="team @team.Name">
+                        <img src="../Logos/@(team.Name).png" />
+                        <div class="team-name">@team.FullName</div>
+                    </div>
+                    <div class="team-stats">
+                        <h2>Rating Probability: @team.RatingProb</h2>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+
+@code {
+    private List<Team> teams;
+
+    protected override async Task OnInitializedAsync()
+    {
+        teams = await TeamRepository.GetAllTeamsAsync();
+    }
+}

@@ -1,0 +1,23 @@
+﻿@using MLBHistoricalDatabase.Components
+
+<div class="sidebar">
+    @foreach (var option in options)
+    {
+        <SidebarOption OptionTitle="@option.Title" SubOptions="@option.SubOptions" />
+    }
+</div>
+
+@code {
+    private List<Option> options = new List<Option>
+    {
+        new Option { Title = "Games", SubOptions = new List<string> { "GetGamesBySeasonDetailed", "GetAllGamesByPitcherId", "GetGamesBySeasonAndTeamId" }},
+        new Option { Title = "Teams", SubOptions = new List<string> { "GetAllTeams", "GetTeamsByRatingsPost", "GetPitchersByTeamName" }},
+        new Option { Title = "Pitchers", SubOptions = new List<string> { "GetAllPitchers", "GetPitchersByRgs", "GetPitcherDetailsById" }}
+    };
+
+    public class Option
+    {
+        public string Title { get; set; }
+        public List<string> SubOptions { get; set; }
+    }
+}
